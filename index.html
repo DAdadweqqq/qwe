@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I LoV U</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        .menu-container {
+            display: flex;
+            height: 100vh;
+            width: 400vw; 
+            transition: transform 0.5s ease;
+        }
+        .menu-section {
+            min-width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            justify-content: flex-start; 
+            position: relative;
+            overflow: hidden;
+        }
+        .section-image {
+            width: 100%; 
+            height: 60%; 
+            background-size: cover; 
+            background-position: center;
+        }
+        .content {
+            text-align: center;
+            padding: 20px; 
+            position: relative;
+            z-index: 2;
+            color: black;
+            height: 40%; 
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .timer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: black; 
+            z-index: 3;
+        }
+        .small-text {
+            font-size: 14px; 
+            color: gray; 
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #000000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-container">
+        <div class="menu-section" style="background-color: #ffffff;">
+            <div class="section-image" style="background-image: url('gas-kvas-com-p-smail-serdechko-na-prozrachnom-fone-24.jpg');"></div>
+            <div class="content">
+                <h1>ТОП ТРИ ВЕЩИ КОТОРЫЕ МНЕ ОЧЕНЬ НРАВЯТСЯ</h1>
+            </div>
+        </div>
+        <div class="menu-section" style="background-color: #97d7f3;">
+            <div class="section-image" style="background-image: url('sticker.webp');"></div>
+            <div class="content">
+                <h1>Здоровый сон</h1>
+                <p class="small-text">*для того, чтобы легче было тебе глазки строить</p>
+            </div>
+        </div>
+        <div class="menu-section" style="background-color: #d1ffbb;">
+            <div class="section-image" style="background-image: url('66-668296_money-bag-animation-stock-footage-clip-art-stacks-of-money-clip-art.png');"></div>
+            <div class="content">
+                <h1>Много денег</h1>
+                <p class="small-text">*что бы конечно тратить их на тебя</p>
+            </div>
+        </div>
+        <div class="menu-section" style="background-color: #ffacd8;">
+            <div class="section-image" style="background-image: url('фотки/222.jpg');"></div>
+            <div class="content">
+                <h1>Твои сообщения<3</h1>
+                <p class="small-text">*все что мне радует, этой дождливой осенью, холодной зимой, цветущей весной и знойным летом</p>
+                <p style="margin-top: 20px;">Кстати давно не радовала, я скучаю</p>
+                <a href="https://web.telegram.org/k/#-2232641030" class="button">ЖМИ</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="timer" id="timer">00:00</div>
+
+    <script>
+        let currentIndex = 0;
+        const totalSections = 4; 
+        const displayTime = 6000; 
+        let timeLeft = displayTime / 1000; 
+        let timerInterval;
+
+        const updateTimerDisplay = () => {
+            const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+            const seconds = String(Math.floor(timeLeft % 60)).padStart(2, '0');
+            document.getElementById('timer').innerText = `${minutes}:${seconds}`;
+        };
+
+        const changeSection = () => {
+            currentIndex = (currentIndex + 1) % totalSections; 
+            document.querySelector('.menu-container').style.transform = `translateX(-${currentIndex * 100}vw)`;
+            timeLeft = displayTime / 1000; 
+        };
+
+        const startTimer = () => {
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    changeSection();
+                    startTimer();
+                }
+            }, 1000);
+        };
+
+        startTimer();
+    </script>
+</body>
+</html>
